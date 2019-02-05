@@ -58,8 +58,11 @@ void setup () {
 	
  	 // Setup beep
  	TCCR1 = 1 << CTC1 | 0 << COM1A0 | 0 << CS10;  			// CTC mode, counter stopped
-	GTCCR = 1 << COM1B0;                      				// Toggle OC1B (PB4)
-  	OCR1C = 119;                            				// Plays 1042Hz (C6)
+	GTCCR = 1 << COM1B0;									// Toggle OC1B (PB4 and PB3 in PM Mode )
+	GTCCR |= 1 << PWM1B;									// PWM Mode
+	OCR1C = 238;											// Plays 1042Hz (C6)
+	OCR1B = 119;											// at duty cycle 50
+
 	
 	//Pin-change interrupt
 	PCMSK = 1 << Pin_Probe;									// Pin change interrupt on Pin_Probe
