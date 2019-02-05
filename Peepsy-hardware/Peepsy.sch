@@ -1,0 +1,272 @@
+EESchema Schematic File Version 4
+LIBS:Peepsy-cache
+EELAYER 26 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L MCU_Microchip_ATtiny:ATtiny85-20SU U1
+U 1 1 5C56BD07
+P 3500 2700
+F 0 "U1" H 2970 2746 50  0000 R CNN
+F 1 "ATtiny85-20SU" H 2970 2655 50  0000 R CNN
+F 2 "Package_SO:SSO-8_9.6x6.3mm_P1.27mm_Clearance10.5mm" H 3500 2700 50  0001 C CIN
+F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2586-avr-8-bit-microcontroller-attiny25-attiny45-attiny85_datasheet.pdf" H 3500 2700 50  0001 C CNN
+	1    3500 2700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C1
+U 1 1 5C56BD70
+P 1700 2700
+F 0 "C1" H 1815 2746 50  0000 L CNN
+F 1 "C" H 1815 2655 50  0000 L CNN
+F 2 "Capacitor_SMD:C_1206_3216Metric_Pad1.42x1.75mm_HandSolder" H 1738 2550 50  0001 C CNN
+F 3 "~" H 1700 2700 50  0001 C CNN
+	1    1700 2700
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VCC #PWR05
+U 1 1 5C56BE53
+P 3500 2100
+F 0 "#PWR05" H 3500 1950 50  0001 C CNN
+F 1 "VCC" H 3517 2273 50  0000 C CNN
+F 2 "" H 3500 2100 50  0001 C CNN
+F 3 "" H 3500 2100 50  0001 C CNN
+	1    3500 2100
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR06
+U 1 1 5C56BEFF
+P 3500 3300
+F 0 "#PWR06" H 3500 3050 50  0001 C CNN
+F 1 "GND" H 3505 3127 50  0000 C CNN
+F 2 "" H 3500 3300 50  0001 C CNN
+F 3 "" H 3500 3300 50  0001 C CNN
+	1    3500 3300
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VCC #PWR03
+U 1 1 5C56BF2F
+P 1700 2550
+F 0 "#PWR03" H 1700 2400 50  0001 C CNN
+F 1 "VCC" H 1717 2723 50  0000 C CNN
+F 2 "" H 1700 2550 50  0001 C CNN
+F 3 "" H 1700 2550 50  0001 C CNN
+	1    1700 2550
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR04
+U 1 1 5C56BF84
+P 1700 2850
+F 0 "#PWR04" H 1700 2600 50  0001 C CNN
+F 1 "GND" H 1705 2677 50  0000 C CNN
+F 2 "" H 1700 2850 50  0001 C CNN
+F 3 "" H 1700 2850 50  0001 C CNN
+	1    1700 2850
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:Battery_Cell BT1
+U 1 1 5C56C098
+P 1100 2750
+F 0 "BT1" H 1218 2846 50  0000 L CNN
+F 1 "Battery_Cell" H 1218 2755 50  0000 L CNN
+F 2 "solderpad_3:Battery 2032 DIY" V 1100 2810 50  0001 C CNN
+F 3 "~" V 1100 2810 50  0001 C CNN
+	1    1100 2750
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VCC #PWR01
+U 1 1 5C56C131
+P 1100 2550
+F 0 "#PWR01" H 1100 2400 50  0001 C CNN
+F 1 "VCC" H 1117 2723 50  0000 C CNN
+F 2 "" H 1100 2550 50  0001 C CNN
+F 3 "" H 1100 2550 50  0001 C CNN
+	1    1100 2550
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR02
+U 1 1 5C56C1BA
+P 1100 2850
+F 0 "#PWR02" H 1100 2600 50  0001 C CNN
+F 1 "GND" H 1105 2677 50  0000 C CNN
+F 2 "" H 1100 2850 50  0001 C CNN
+F 3 "" H 1100 2850 50  0001 C CNN
+	1    1100 2850
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R1
+U 1 1 5C56C3AA
+P 4250 2400
+F 0 "R1" V 4043 2400 50  0000 C CNN
+F 1 "R" V 4134 2400 50  0000 C CNN
+F 2 "Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder" V 4180 2400 50  0001 C CNN
+F 3 "~" H 4250 2400 50  0001 C CNN
+	1    4250 2400
+	0    1    1    0   
+$EndComp
+$Comp
+L power:GND #PWR07
+U 1 1 5C56C485
+P 4400 2400
+F 0 "#PWR07" H 4400 2150 50  0001 C CNN
+F 1 "GND" V 4405 2272 50  0000 R CNN
+F 2 "" H 4400 2400 50  0001 C CNN
+F 3 "" H 4400 2400 50  0001 C CNN
+	1    4400 2400
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Connector:Conn_01x01_Female J1
+U 1 1 5C56C5D8
+P 5350 2500
+F 0 "J1" H 5377 2526 50  0000 L CNN
+F 1 "Probe" H 5377 2435 50  0000 L CNN
+F 2 "Connector:Banana_Jack_1Pin" H 5350 2500 50  0001 C CNN
+F 3 "~" H 5350 2500 50  0001 C CNN
+	1    5350 2500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R2
+U 1 1 5C56CBBB
+P 4250 2600
+F 0 "R2" V 4043 2600 50  0000 C CNN
+F 1 "R" V 4134 2600 50  0000 C CNN
+F 2 "Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder" V 4180 2600 50  0001 C CNN
+F 3 "~" H 4250 2600 50  0001 C CNN
+	1    4250 2600
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	4100 2500 5150 2500
+$Comp
+L Device:LED D1
+U 1 1 5C56CFA9
+P 5900 2600
+F 0 "D1" H 5892 2345 50  0000 C CNN
+F 1 "Signal" H 5892 2436 50  0000 C CNN
+F 2 "LED_SMD:LED_1206_3216Metric_Pad1.42x1.75mm_HandSolder" H 5900 2600 50  0001 C CNN
+F 3 "~" H 5900 2600 50  0001 C CNN
+	1    5900 2600
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR08
+U 1 1 5C56D152
+P 6050 2600
+F 0 "#PWR08" H 6050 2350 50  0001 C CNN
+F 1 "GND" V 6055 2472 50  0000 R CNN
+F 2 "" H 6050 2600 50  0001 C CNN
+F 3 "" H 6050 2600 50  0001 C CNN
+	1    6050 2600
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	4400 2600 5750 2600
+$Comp
+L Device:Speaker_Crystal LS1
+U 1 1 5C56DA39
+P 5000 2800
+F 0 "LS1" H 5175 2796 50  0000 L CNN
+F 1 "Speaker_Crystal" H 5175 2705 50  0000 L CNN
+F 2 "solderpad_3:piezo smd" H 4965 2750 50  0001 C CNN
+F 3 "~" H 4965 2750 50  0001 C CNN
+	1    5000 2800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4800 2800 4550 2800
+Wire Wire Line
+	4550 2800 4550 2700
+Wire Wire Line
+	4550 2700 4100 2700
+Wire Wire Line
+	4100 2800 4500 2800
+Wire Wire Line
+	4500 2800 4500 2900
+Wire Wire Line
+	4500 2900 4800 2900
+$Comp
+L Device:LED D2
+U 1 1 5C56E039
+P 5900 3200
+F 0 "D2" H 5892 2945 50  0000 C CNN
+F 1 "Wake" H 5892 3036 50  0000 C CNN
+F 2 "LED_SMD:LED_1206_3216Metric_Pad1.42x1.75mm_HandSolder" H 5900 3200 50  0001 C CNN
+F 3 "~" H 5900 3200 50  0001 C CNN
+	1    5900 3200
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR09
+U 1 1 5C56E194
+P 6050 3200
+F 0 "#PWR09" H 6050 2950 50  0001 C CNN
+F 1 "GND" V 6055 3072 50  0000 R CNN
+F 2 "" H 6050 3200 50  0001 C CNN
+F 3 "" H 6050 3200 50  0001 C CNN
+	1    6050 3200
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R R3
+U 1 1 5C56E265
+P 5600 3200
+F 0 "R3" V 5393 3200 50  0000 C CNN
+F 1 "R" V 5484 3200 50  0000 C CNN
+F 2 "Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder" V 5530 3200 50  0001 C CNN
+F 3 "~" H 5600 3200 50  0001 C CNN
+	1    5600 3200
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	4100 2900 4400 2900
+Wire Wire Line
+	4400 2900 4400 3200
+Wire Wire Line
+	4400 3200 5450 3200
+$Comp
+L Connector:Conn_01x01_Female J2
+U 1 1 5C56FB44
+P 5350 1950
+F 0 "J2" H 5377 1976 50  0000 L CNN
+F 1 "Probe" H 5377 1885 50  0000 L CNN
+F 2 "Connector:Banana_Jack_1Pin" H 5350 1950 50  0001 C CNN
+F 3 "~" H 5350 1950 50  0001 C CNN
+	1    5350 1950
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0101
+U 1 1 5C56FC61
+P 5150 1950
+F 0 "#PWR0101" H 5150 1700 50  0001 C CNN
+F 1 "GND" H 5155 1777 50  0000 C CNN
+F 2 "" H 5150 1950 50  0001 C CNN
+F 3 "" H 5150 1950 50  0001 C CNN
+	1    5150 1950
+	1    0    0    -1  
+$EndComp
+Text Label 4800 2500 0    50   ~ 0
+Probe
+$EndSCHEMATC
