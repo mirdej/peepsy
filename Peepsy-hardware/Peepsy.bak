@@ -86,7 +86,7 @@ U 1 1 5C56C098
 P 1100 2750
 F 0 "BT1" H 1218 2846 50  0000 L CNN
 F 1 "Battery_Cell" H 1218 2755 50  0000 L CNN
-F 2 "solderpad_3:smd-2pin" V 1100 2810 50  0001 C CNN
+F 2 "solderpad_3:Battery 2032 DIY" V 1100 2810 50  0001 C CNN
 F 3 "~" V 1100 2810 50  0001 C CNN
 	1    1100 2750
 	1    0    0    -1  
@@ -189,7 +189,7 @@ U 1 1 5C56DA39
 P 5000 2800
 F 0 "LS1" H 5175 2796 50  0000 L CNN
 F 1 "Speaker_Crystal" H 5175 2705 50  0000 L CNN
-F 2 "solderpad_3:smd-2pin" H 4965 2750 50  0001 C CNN
+F 2 "solderpad_3:piezo smd" H 4965 2750 50  0001 C CNN
 F 3 "~" H 4965 2750 50  0001 C CNN
 	1    5000 2800
 	1    0    0    -1  

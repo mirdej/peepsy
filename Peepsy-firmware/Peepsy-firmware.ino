@@ -16,8 +16,6 @@
 #include <avr/sleep.h>
 #include <avr/power.h>
 
-#define RESET_DISABLED	0
-
 const int					Pin_Led_Wake		= 5;
 const int					Pin_Led_Sense		= 2;
 const int					Pin_Reference		= 0;		// AIN0
@@ -46,15 +44,15 @@ void NoBeep () {
 	digitalWrite(Pin_Led_Sense, LOW);
 }
 
+
 // ----------------------------------------------------------------------------------------
 void setup () {
 	pinMode(Pin_Reference,	INPUT_PULLUP);
 	pinMode(Pin_Probe,		INPUT_PULLUP);
-	//pinMode(Pin_Led_Wake,		OUTPUT);
 	pinMode(Pin_Led_Sense,	OUTPUT);
+	pinMode(Pin_Led_Wake,	OUTPUT);
 	pinMode(Pin_Speaker_A,	OUTPUT);
 	pinMode(Pin_Speaker_B,	OUTPUT);
-
 	
  	 // Setup beep
  	TCCR1 = 1 << CTC1 | 0 << COM1A0 | 0 << CS10;  			// CTC mode, counter stopped
@@ -85,14 +83,14 @@ void loop() {
 	
 	// Go to sleep?
 	if (millis() - Time > Timeout) {
-		//digitalWrite(Pin_Led_Wake, LOW);						 // Pin_Led_Wake off
-		digitalWrite(Pin_Led_Wake, LOW);
-		pinMode(Pin_Reference, INPUT);								// Turn off pullup to save power
+		digitalWrite(Pin_Led_Sense, LOW);
+		digitalWrite(Pin_Led_Wake, 	LOW);
+		pinMode(Pin_Reference, 		INPUT);								// Turn off pullup to save power
 		sleep_enable();
 		sleep_cpu();
 		// Carry on here when we wake up
 		pinMode(Pin_Reference, INPUT_PULLUP);
-		//digitalWrite(Pin_Led_Wake, true);							 // Pin_Led_Wake on
+		digitalWrite(Pin_Led_Wake, 	HIGH);
 	}
 }
 
