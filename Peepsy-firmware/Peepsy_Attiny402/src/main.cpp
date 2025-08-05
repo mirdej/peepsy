@@ -12,8 +12,7 @@
   http://creativecommons.org/licenses/by/4.0/
 
 --------------------------------------------------------------------------------------- */
-/* #undef MILLIS_USE_TIMERA0
- */
+
 #define MILLIS_USE_TIMERB0
 
 #include <Arduino.h>
@@ -25,26 +24,19 @@
 #include <avr/sleep.h>
 #include <avr/power.h>
 
-#ifndef MILLIS_USE_TIMERB0
-#error "This sketch is written for use with TCB0 as the millis timing source"
-#endif
-
 const int Pin_Led = PIN_PA3;
 const int Pin_Reference = PIN_PA7; // AINP0
 const int Pin_Probe = PIN_PA6;     // AINN0
-const int Pin_Speaker_A = PIN_PA2; //  WO1
-const int Pin_Speaker_B = PIN_PA1; //  WO2
-/*
-const int beepFrequency = 4000; */
+const int Pin_Speaker_A = PIN_PA2;
+const int Pin_Speaker_B = PIN_PA1;
 
 // ==============================================================================
 // - Globals
 
 const unsigned long Timeout = (unsigned long)20 * 1000; // twenty seconds
 volatile unsigned long Time;
-
+long lastblink;
 bool Sense;
-
 
 // ----------------------------------------------------------------------------------------
 // Pin change interrupt service routine - resets sleep timer
@@ -56,18 +48,24 @@ void wakeUp()
 // ----------------------------------------------------------------------------------------
 void Beep()
 {
-
-  //TCA0.SINGLE.CTRLA |= TCA_SINGLE_ENABLE_bm;
+  // TCCR1 = TCCR1 | 3;											// Counter = clock/4
+  // tone(Pin_Speaker_A, 2000);
+  /*   analogWrite(Pin_Speaker_A, 127);
+   */
+  TCA0.SINGLE.CTRLA |= TCA_SINGLE_ENABLE_bm;
   digitalWrite(Pin_Led, HIGH);
 }
 
 // ----------------------------------------------------------------------------------------
 void NoBeep()
 {
- // TCA0.SINGLE.CTRLA &= ~TCA_SINGLE_ENABLE_bm;
+  // TCCR1 = TCCR1 & ~3;											// Counter stopped
+  // noTone(Pin_Speaker_A);
+  /*   analogWrite(Pin_Speaker_A, 0);
+   */
+  TCA0.SINGLE.CTRLA &= ~TCA_SINGLE_ENABLE_bm;
   digitalWrite(Pin_Led, LOW);
 }
-
 
 // ==============================================================================
 // - init
@@ -75,22 +73,15 @@ void NoBeep()
 
 void setup()
 {
+  Comparator.init();
+
   pinMode(Pin_Reference, INPUT_PULLUP);
   pinMode(Pin_Probe, INPUT_PULLUP);
   pinMode(Pin_Led, OUTPUT);
   pinMode(Pin_Speaker_A, OUTPUT);
   pinMode(Pin_Speaker_B, OUTPUT);
   digitalWrite(Pin_Speaker_B, LOW);
-  digitalWrite(Pin_Speaker_A, LOW);
-
-/*   takeOverTCA0();
-  TCA0.SINGLE.CMP0 = 800;
-  TCA0.SINGLE.CTRLB = TCA_SINGLE_WGMODE_FRQ_gc | TCA_SINGLE_CMP1EN_bm | TCA_SINGLE_CMP2EN_bm;
-  TCA0.SINGLE.CTRLA = TCA_SINGLE_CLKSEL_DIV1_gc ;
-  PORTA.PIN2CTRL |= PORT_INVEN_bm;
- */
-  Comparator.init();
-
+  // Pin-change interrupt
   attachInterrupt(digitalPinToInterrupt(Pin_Probe), wakeUp, FALLING);
 
   // Power saving
@@ -98,10 +89,16 @@ void setup()
   PRR = 1 << PRUSI | 1 << PRADC;							// Turn off unused clocks */
 
   // Setup Analog Comparator
-/*   AC0.MUXCTRLA = AC_INVERT_bm;
-  AC0.CTRLA = AC_ENABLE_bm; */
+  AC0.MUXCTRLA = AC_INVERT_bm;
+  AC0.CTRLA = AC_ENABLE_bm;
 
   set_sleep_mode(SLEEP_MODE_PWR_DOWN);
+
+  takeOverTCA0();
+  TCA0.SINGLE.CMP0 = 800;
+  TCA0.SINGLE.CTRLB = TCA_SINGLE_WGMODE_FRQ_gc | TCA_SINGLE_CMP1EN_bm | TCA_SINGLE_CMP2EN_bm;
+  TCA0.SINGLE.CTRLA = TCA_SINGLE_CLKSEL_DIV1_gc;
+  PORTA.PIN2CTRL |= PORT_INVEN_bm;
 
   // Start running
   Time = millis();
@@ -124,15 +121,6 @@ void loop()
   {
     NoBeep();
   }
-
-
-
-
-  return;
-
-
-
-
 
   // Go to sleep?
   if (millis() - Time > Timeout)
