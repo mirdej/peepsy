@@ -35,8 +35,11 @@ const int Pin_Speaker_B = PIN_PA1;
 
 const unsigned long Timeout = (unsigned long)20 * 1000; // twenty seconds
 volatile unsigned long Time;
-long lastblink;
+
 bool Sense;
+
+const int freq = 1200;
+
 
 // ----------------------------------------------------------------------------------------
 // Pin change interrupt service routine - resets sleep timer
@@ -48,10 +51,6 @@ void wakeUp()
 // ----------------------------------------------------------------------------------------
 void Beep()
 {
-  // TCCR1 = TCCR1 | 3;											// Counter = clock/4
-  // tone(Pin_Speaker_A, 2000);
-  /*   analogWrite(Pin_Speaker_A, 127);
-   */
   TCA0.SINGLE.CTRLA |= TCA_SINGLE_ENABLE_bm;
   digitalWrite(Pin_Led, HIGH);
 }
@@ -59,10 +58,7 @@ void Beep()
 // ----------------------------------------------------------------------------------------
 void NoBeep()
 {
-  // TCCR1 = TCCR1 & ~3;											// Counter stopped
-  // noTone(Pin_Speaker_A);
-  /*   analogWrite(Pin_Speaker_A, 0);
-   */
+
   TCA0.SINGLE.CTRLA &= ~TCA_SINGLE_ENABLE_bm;
   digitalWrite(Pin_Led, LOW);
 }
@@ -73,36 +69,38 @@ void NoBeep()
 
 void setup()
 {
-  Comparator.init();
 
+  // Setup Analog Comparator
+  Comparator.init();
+  AC0.MUXCTRLA = AC_INVERT_bm;
+  AC0.CTRLA = AC_ENABLE_bm;
+  Comparator.start();
+
+  // Setup Pins
   pinMode(Pin_Reference, INPUT_PULLUP);
   pinMode(Pin_Probe, INPUT_PULLUP);
   pinMode(Pin_Led, OUTPUT);
   pinMode(Pin_Speaker_A, OUTPUT);
   pinMode(Pin_Speaker_B, OUTPUT);
-  digitalWrite(Pin_Speaker_B, LOW);
-  // Pin-change interrupt
+
+  //  Pin-change interrupt
   attachInterrupt(digitalPinToInterrupt(Pin_Probe), wakeUp, FALLING);
+  set_sleep_mode(SLEEP_MODE_PWR_DOWN);
 
   // Power saving
   /* ADCSRA &= ~(1 << ADEN);									// Disable ADC to save power
   PRR = 1 << PRUSI | 1 << PRADC;							// Turn off unused clocks */
 
-  // Setup Analog Comparator
-  AC0.MUXCTRLA = AC_INVERT_bm;
-  AC0.CTRLA = AC_ENABLE_bm;
-
-  set_sleep_mode(SLEEP_MODE_PWR_DOWN);
-
+  // Setup Timer A in Frequency generation mode for beep sound
+  // Inverted Signal on PINA2
   takeOverTCA0();
-  TCA0.SINGLE.CMP0 = 800;
+  TCA0.SINGLE.CMP0 = (F_CPU / (2 * freq)) + 1;
   TCA0.SINGLE.CTRLB = TCA_SINGLE_WGMODE_FRQ_gc | TCA_SINGLE_CMP1EN_bm | TCA_SINGLE_CMP2EN_bm;
   TCA0.SINGLE.CTRLA = TCA_SINGLE_CLKSEL_DIV1_gc;
   PORTA.PIN2CTRL |= PORT_INVEN_bm;
 
   // Start running
   Time = millis();
-  Comparator.start();
 }
 
 // ==============================================================================
